@@ -21,6 +21,7 @@ body {
 .full-viewport:nth-child(even) {
 	background-color: gold;
 }
+
 .full-viewport h2 {
 	margin: 0;
 	font: 900 3em helvetica, sans-serif;
