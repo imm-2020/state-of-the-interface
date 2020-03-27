@@ -13,6 +13,18 @@ let theStateOfThings = () => {
 	let pctX = Math.round(winX / Math.max(maxX, 1) * 100)
 
 	
+	let $third = document.querySelector('.full-viewport:nth-child(3)')
+	let fromD = $third.offsetTop
+	let fromW = $third.getBoundingClientRect().bottom
+
+	if (thirdTop < winH / 2) {
+		console.log(`Above viewport half`)
+	} else {
+		console.log(`Below viewport half`)
+	}
+
+
+
 	document.querySelector('.panel').innerHTML = `
 		<li>The window is <strong>${winH}</strong> px tall, <strong>${winW}</strong> px wide</li>
 		<li>The document is <strong>${docH}</strong> px tall, <strong>${docW}</strong> px wide</li>
@@ -22,6 +34,8 @@ let theStateOfThings = () => {
 				<li>That's <strong>${pctX}</strong> % of <strong>${maxX}</strong> horizontally</li>
 			</ol>
 		</li>
+		<li>The third section is <strong>${fromD}</strong> px from the top of the document</li>
+		<li>The third section is <strong>${fromW}</strong> px from the top of the viewport/window</li>
 		`
 }
 
