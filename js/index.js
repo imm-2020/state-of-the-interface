@@ -17,19 +17,24 @@ let theStateOfThings = () => {
 
 	let checkOneSection = ($sec) => {
 		let fromD = $sec.offsetTop
-		let fromW = $sec.getBoundingClientRect().top
+		let top = $sec.getBoundingClientRect().top
+		let bottom = $sec.getBoundingClientRect().bottom
+		
+		let theId = $sec.getAttribute('id')
 
-		if (fromW < winH / 2) {
-			infoForElement += `<li>The third section is <strong>above</strong> the window's midpoint</li>`
+		if (top < winH && bottom > 0) {
+			infoForElement += `<li class="past" style="opacity:${bottom / winH};">${$sec.querySelector('h2').textContent}</li>`
 		} else {
-			infoForElement += `<li>The third section is <strong>below</strong> the window's midpoint</li>`
+			infoForElement += `<li><a href="#${theId}">${$sec.querySelector('h2').textContent}</a></li>`
 		}
 	}
 
+	// Iterate through each matching eleemnt, call the checkOneSection function for each one
 	document.querySelectorAll('.full-viewport').forEach(checkOneSection)
 
 
 	document.querySelector('.panel').innerHTML = `
+		<h2>Page Stats</h2>
 		<li>The window is <strong>${winH}</strong> px tall, <strong>${winW}</strong> px wide</li>
 		<li>The document is <strong>${docH}</strong> px tall, <strong>${docW}</strong> px wide</li>
 		<li>The window has scrolled <strong>${winY}</strong> px vertically, <strong>${winX}</strong> px horizontally
@@ -38,10 +43,11 @@ let theStateOfThings = () => {
 				<li>That's <strong>${pctX}</strong> % of <strong>${maxX}</strong> horizontally</li>
 			</ol>
 		</li>
-		${infoForElement}
+		<h2>The Sections:</h2>
+		<li>
+			<ol>${infoForElement}</ol>
+		</li> 
 		`
-
-
 }
 
 // 1                       2     3
