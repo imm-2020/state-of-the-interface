@@ -12,17 +12,21 @@ let theStateOfThings = () => {
 	let pctY = Math.round(winY / Math.max(maxY, 1) * 100)
 	let pctX = Math.round(winX / Math.max(maxX, 1) * 100)
 
-	
-	let $third = document.querySelector('.full-viewport:nth-child(3)')
-	let fromD = $third.offsetTop
-	let fromW = $third.getBoundingClientRect().bottom
 
-	if (thirdTop < winH / 2) {
-		console.log(`Above viewport half`)
-	} else {
-		console.log(`Below viewport half`)
+	let infoForElement = ''	
+
+	let checkOneSection = ($sec) => {
+		let fromD = $sec.offsetTop
+		let fromW = $sec.getBoundingClientRect().top
+
+		if (fromW < winH / 2) {
+			infoForElement += `<li>The third section is <strong>above</strong> the window's midpoint</li>`
+		} else {
+			infoForElement += `<li>The third section is <strong>below</strong> the window's midpoint</li>`
+		}
 	}
 
+	document.querySelectorAll('.full-viewport').forEach(checkOneSection)
 
 
 	document.querySelector('.panel').innerHTML = `
@@ -34,9 +38,10 @@ let theStateOfThings = () => {
 				<li>That's <strong>${pctX}</strong> % of <strong>${maxX}</strong> horizontally</li>
 			</ol>
 		</li>
-		<li>The third section is <strong>${fromD}</strong> px from the top of the document</li>
-		<li>The third section is <strong>${fromW}</strong> px from the top of the viewport/window</li>
+		${infoForElement}
 		`
+
+
 }
 
 // 1                       2     3
